@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { useState, useEffect } from 'react'
 import './App.css'
+import axios from 'axios';
 
-function App() {
-  const [count, setCount] = useState(0)
+const NOTES_URL = 'http://localhost:3001/notes'
+const POSTS_PER_PAGE = 10
 
-  return (
-    <>
+
+export default function App(){
+  const [activePage, setActivePage] = useState(1);
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    const promise = axios.get(NOTES_URL, {
+        params: {
+          _page: activePage,
+          _limit: POSTS_PER_PAGE
+        }});
+    promise.then(response => { 
+        // fill
+        console.log("response found")
+        //setActivePage(n => n+1)
+        setNotes(response.data);  // Store the data in state
+    }).catch(error => {console.log("Encountered an error:" + error)});
+  }, [activePage]);
+
+  return(
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <button name="first">Length: {notes[0]}</button>  
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+  );
+  // <Note i = {activePage} notes = {notes} />
+  //<Pagination activePage={activePage} totalPages={100} setActivePage={setActivePage}/>
+}
+
+function Pagination({activePage, totalPages, setActivePage}){
+  return(
+  <div>
+    <button name="first" disabled = {activePage==1} onClick = {() => setActivePage(1)}>First</button>
+    <button name="previous" disabled = {activePage==1} onClick = {() => setActivePage(n => n-1)}>Previous</button>
+    <button name="next" disabled = {activePage==totalPages} onClick = {() => setActivePage(n => n+1)}>Next</button>
+    <button name="last" disabled= {activePage==totalPages} onClick = {() => setActivePage({totalPages})}>Last</button>
+</div>);
+}
+
+function Note({i, notes}){
+  return(
+    <div className = "note" id={i}>
+    <h2>Note {i}</h2>
+    <small>By Author {notes[i].author}</small>
+    <br>
+    {notes[i].content}
+    </br>
+</div>
   )
 }
 
-export default App
