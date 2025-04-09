@@ -1,0 +1,49 @@
+{
+    "notes": [
+        {
+            "id": 1,
+            "title": "Note 1",
+            "author": {
+                "name": "Author 1",
+                "email": "mail_1@gmail.com"
+            },
+            "content": "Content for note 1"
+        },
+        {
+            "id": 2,
+            "title": "Note 2",
+            "author": {
+                "name": "Author 2",
+                "email": "mail_2@gmail.com"
+            },
+            "content": "Content for note 2"
+        },
+        {
+            "id": 3,
+            "title": "Note 3",
+            "author": {
+                "name": "Author 3",
+                "email": "mail_3@gmail.com"
+            },
+            "content": "Content for note 3"
+        },
+        {
+            "id": 4,
+            "title": "Note 4",
+            "author": {
+                "name": "Author 4",
+                "email": "mail_4@gmail.com"
+            },
+            "content": "Content for note 4"
+        },
+        {
+            "id": 5,
+            "title": "Note 5",
+            "author": {
+                "name": "Author 5",
+                "email": "mail_5@gmail.com"
+            },
+            "content": "Content for note 5"
+        }
+    ]
+}
