@@ -3,11 +3,12 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios';
 
-const NOTES_URL = 'http://localhost:3001/notes'
-const POSTS_PER_PAGE = 10
+
 
 
 export default function App(){
+  const NOTES_URL = 'http://localhost:3001/notes'
+  const POSTS_PER_PAGE = 10
   const [activePage, setActivePage] = useState(1);
   const [notes, setNotes] = useState([]);
 
@@ -27,7 +28,7 @@ export default function App(){
 
   return(
       <div>
-        <button name="first">Length: {notes[0]}</button>  
+        <Note i={1} notes={notes} /> 
       </div>
 
   );
@@ -35,7 +36,22 @@ export default function App(){
   //<Pagination activePage={activePage} totalPages={100} setActivePage={setActivePage}/>
 }
 
-function Pagination({activePage, totalPages, setActivePage}){
+function Note({i, notes}){
+  
+  if (!notes[i]) return <div>Loading note...</div>;
+
+  return (
+    <div className="note" id={String(i)}>
+      <h2>{notes[i].title}</h2>
+      <small>By Author {notes[i].author.name}</small>
+      <br />
+      {notes[i].content}
+    </div>
+  );
+
+}
+
+function Pagination({activePage , totalPages, setActivePage}){
   return(
   <div>
     <button name="first" disabled = {activePage==1} onClick = {() => setActivePage(1)}>First</button>
@@ -45,15 +61,5 @@ function Pagination({activePage, totalPages, setActivePage}){
 </div>);
 }
 
-function Note({i, notes}){
-  return(
-    <div className = "note" id={i}>
-    <h2>Note {i}</h2>
-    <small>By Author {notes[i].author}</small>
-    <br>
-    {notes[i].content}
-    </br>
-</div>
-  )
-}
+
 
