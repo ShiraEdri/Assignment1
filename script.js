@@ -20,7 +20,7 @@ function generateNotesData(count) {
 // get count from cmdline
 const args = process.argv.slice(2);
 const count = parseInt(args[0]); 
-const filePath = './data/notes2.json'; 
+const filePath = './data/notes.json'; 
 // generate data
 const data = generateNotesData(count);
 // save data
